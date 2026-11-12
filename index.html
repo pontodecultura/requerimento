@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153b32">
+  <meta name="description" content="Gerador de requerimentos para solicitação de cobertura de eventos da Rede Municipal de Educação de Irecê - BA.">
+  <title>Gerador de Requerimento | Educação de Irecê</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23153b32'/%3E%3Cpath d='M17 16h30v7H24v8h20v7H24v10h23v7H17z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/print.css" media="print">
+  <script type="module" src="src/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">RE</div>
+        <div>
+          <p class="eyebrow">Secretaria Municipal de Educação</p>
+          <h1>Gerador de Requerimento</h1>
+        </div>
+      </div>
+      <div class="topbar-note">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Aplicação local · dados salvos neste dispositivo</span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="editor-panel" aria-labelledby="form-heading">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Solicitação de serviço</p>
+            <h2 id="form-heading">Dados do requerimento</h2>
+            <p class="muted">Preencha os campos para solicitar a cobertura de comunicação do evento.</p>
+          </div>
+          <span class="step-chip">01 / 02</span>
+        </div>
+
+        <form id="request-form" novalidate>
+          <div class="field-group">
+            <label for="requester-name">Nome do requerente <span class="required">*</span></label>
+            <input id="requester-name" name="requesterName" type="text" maxlength="120" autocomplete="name" placeholder="Nome completo do solicitante" required>
+            <small class="field-hint">Pessoa responsável por encaminhar a solicitação.</small>
+          </div>
+
+          <div class="field-group">
+            <label for="event-title">Título do evento <span class="required">*</span></label>
+            <input id="event-title" name="eventTitle" type="text" maxlength="160" placeholder="Ex.: Feira Municipal de Educação" required>
+          </div>
+
+          <div class="field-group">
+            <div class="label-line">
+              <label for="event-description">Descrição / sinopse <span class="required">*</span></label>
+              <span class="counter" id="description-counter">0 / 500</span>
+            </div>
+            <textarea id="event-description" name="description" rows="5" maxlength="500" placeholder="Descreva, de forma simples e objetiva, o objetivo do evento, o público envolvido e as principais atividades." required></textarea>
+            <small class="field-hint">Limite de 500 caracteres. Evite informações excessivas e priorize o que a equipe precisa saber.</small>
+          </div>
+
+          <div class="field-group">
+            <label for="media-type">Tipo de mídia solicitado <span class="required">*</span></label>
+            <select id="media-type" name="mediaType" required>
+              <option value="">Selecione o tipo de cobertura</option>
+              <option value="Fotografia">Fotografia</option>
+              <option value="Vídeo">Vídeo</option>
+              <option value="Fotografia/Vídeo">Fotografia/Vídeo</option>
+              <option value="Gravação">Gravação</option>
+              <option value="Documentário">Documentário</option>
+              <option value="Produção Musical">Produção Musical</option>
+              <option value="Cobertura Total do Evento">Cobertura Total do Evento</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="request-date">Data da solicitação <span class="required">*</span></label>
+            <input id="request-date" name="requestDate" type="date" required>
+          </div>
+
+          <div class="field-group logo-field-group">
+            <div class="label-line">
+              <label for="logo-upload">Logotipo do órgão</label>
+              <span class="optional-tag">Imagem quadrada · 1:1</span>
+            </div>
+            <div class="logo-upload-row">
+              <div class="logo-thumb" id="logo-thumb" aria-label="Pré-visualização do logotipo">
+                <span id="logo-thumb-placeholder">LOGO</span>
+                <img id="logo-thumb-image" alt="Pré-visualização do logotipo enviado" hidden>
+              </div>
+              <div class="logo-upload-controls">
+                <input id="logo-upload" name="logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+                <small class="field-hint">PNG, JPG, WEBP ou SVG. A imagem será ajustada para um quadro 1:1 e armazenada localmente.</small>
+                <button class="text-button" id="remove-logo" type="button" hidden>Remover logotipo</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-secondary" id="new-request" type="button">Novo requerimento</button>
+            <button class="button button-primary" id="save-request" type="button">
+              <span class="button-icon" aria-hidden="true">＋</span>
+              Salvar solicitação
+            </button>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">▣</span> O rascunho é salvo automaticamente no armazenamento local deste navegador. Nenhum dado é enviado a um servidor.</p>
+          <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+        </form>
+
+        <section class="history-section" aria-labelledby="history-heading">
+          <div class="history-heading-row">
+            <div>
+              <p class="section-kicker">Armazenamento local</p>
+              <h3 id="history-heading">Solicitações salvas</h3>
+            </div>
+            <span class="history-count" id="history-count">0</span>
+          </div>
+          <div id="history-list" class="history-list">
+            <p class="empty-history">As solicitações salvas aparecerão aqui.</p>
+          </div>
+        </section>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="preview-heading">
+        <div class="preview-toolbar">
+          <div>
+            <p class="section-kicker">Visualização do documento</p>
+            <h2 id="preview-heading">Pré-visualização</h2>
+          </div>
+          <div class="preview-actions">
+            <span class="a4-tag">A4 · Retrato</span>
+            <button class="button button-primary print-button" id="generate-pdf" type="button">
+              <span aria-hidden="true">⇩</span> Gerar PDF
+            </button>
+          </div>
+        </div>
+        <p class="preview-help">Confira o documento antes de exportar. Ao clicar em “Gerar PDF”, use a opção <strong>Salvar como PDF</strong> na janela de impressão.</p>
+
+        <article class="document-sheet" id="document-sheet" aria-label="Documento de requerimento para cobertura de evento">
+          <header class="document-header">
+            <div class="document-logo" id="document-logo">
+              <span id="document-logo-placeholder">LOGOTIPO<br>DO ÓRGÃO</span>
+              <img id="document-logo-image" alt="Logotipo do órgão" hidden>
+            </div>
+            <p class="document-institution">SECRETARIA MUNICIPAL DE EDUCAÇÃO<br>DE IRECÊ – BA</p>
+            <div class="document-rule"></div>
+            <h2>REQUERIMENTO DE SOLICITAÇÃO<br>DE COBERTURA DE EVENTO</h2>
+          </header>
+
+          <div class="document-intro">
+            <p>À Equipe de Comunicação da Secretaria Municipal de Educação de Irecê – BA,</p>
+            <p>Solicito a análise e o atendimento da demanda de cobertura de comunicação do evento informado a seguir, conforme a disponibilidade e o planejamento da equipe.</p>
+          </div>
+
+          <section class="document-details" aria-label="Informações do evento">
+            <div class="document-field">
+              <span class="document-label">REQUERENTE</span>
+              <p id="preview-requester">Nome do requerente</p>
+            </div>
+            <div class="document-field">
+              <span class="document-label">TÍTULO DO EVENTO</span>
+              <p id="preview-title">Título do evento</p>
+            </div>
+            <div class="document-field">
+              <span class="document-label">DESCRIÇÃO / SINOPSE</span>
+              <p id="preview-description" class="description-text">A descrição objetiva do evento será exibida neste campo.</p>
+            </div>
+            <div class="document-field media-field">
+              <span class="document-label">TIPO DE MÍDIA SOLICITADO</span>
+              <p id="preview-media">Tipo de mídia</p>
+            </div>
+          </section>
+
+          <p class="document-closing">A presente solicitação será encaminhada para avaliação e organização da agenda de atendimento da equipe de comunicação.</p>
+
+          <footer class="document-footer">
+            <p class="document-date" id="preview-date">Irecê – BA, ____ de ______________ de ______.</p>
+            <div class="signature-block">
+              <div class="signature-line"></div>
+              <p class="signature-name" id="preview-signature-name">Nome do requerente</p>
+              <p class="signature-caption">Assinatura do(a) requerente</p>
+            </div>
+            <p class="document-footer-note">Secretaria Municipal de Educação de Irecê – BA</p>
+          </footer>
+        </article>
+        <p class="print-footnote">O PDF será gerado em formato A4. Para preservar a diagramação, selecione papel A4, orientação retrato e escala padrão na impressão.</p>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Gerador de Requerimento · Secretaria Municipal de Educação de Irecê – BA</span>
+      <span>Versão 1.0.0</span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "gerador-requerimento-cobertura-evento-irece",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Gerador local de requerimentos para cobertura de eventos da Rede Municipal de Educação de Irecê - BA.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

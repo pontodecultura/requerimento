@@ -1,27 +1,283 @@
+/*
+ * Folha de impressão otimizada para A4.
+ * O documento pode ocupar mais de uma página quando necessário, mas os blocos
+ * de conteúdo são preservados para evitar cortes no meio de um campo ou assinatura.
+ */
 @page {
   size: A4 portrait;
-  margin: 16mm 18mm;
+  margin: 12mm 15mm 12mm;
 }
 
 @media print {
-  html, body { width: 210mm; min-width: 0; min-height: 0; margin: 0 !important; padding: 0 !important; background: #fff !important; }
-  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .app-shell, .workspace, .preview-panel { display: block !important; width: auto !important; margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; background: #fff !important; }
-  .topbar, .editor-panel, .preview-toolbar, .preview-help, .print-footnote, .app-footer { display: none !important; }
-  .preview-panel { display: block !important; }
-  .document-sheet {
-    display: flex !important;
-    width: 100% !important;
-    min-height: 255mm !important;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box !important;
+  }
+
+  html,
+  body {
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  body {
+    color: #202b27 !important;
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.45 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .app-shell,
+  .workspace,
+  .preview-panel {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    break-inside: avoid;
+    background: #fff !important;
+  }
+
+  .topbar,
+  .editor-panel,
+  .preview-toolbar,
+  .preview-help,
+  .print-footnote,
+  .app-footer {
+    display: none !important;
+  }
+
+  .document-sheet {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #202b27 !important;
+    font-family: Arial, "Liberation Sans", Helvetica, sans-serif !important;
+    font-size: 12pt !important;
+    line-height: 1.45 !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .document-header {
+    text-align: center !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .document-logo {
+    display: grid !important;
+    width: 25mm !important;
+    height: 25mm !important;
+    margin: 0 auto 3mm !important;
+    border: 0.25mm solid #d4ddd7 !important;
+    border-radius: 1mm !important;
+    background: #fff !important;
+    color: #65746b !important;
+    font-size: 8.5pt !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.04em !important;
+    overflow: hidden !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .document-logo img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .document-institution {
+    margin: 0 !important;
+    color: #26372f !important;
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.035em !important;
+  }
+
+  .document-rule {
+    width: 100% !important;
+    height: 0.6mm !important;
+    margin: 3mm 0 4mm !important;
+    background: #244b3c !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .document-header h2 {
+    margin: 0 !important;
+    color: #1d2e26 !important;
+    font-size: 15pt !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.02em !important;
+    overflow-wrap: anywhere !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .document-intro {
+    margin-top: 7mm !important;
+    color: #27352e !important;
+    font-size: 11.5pt !important;
+    line-height: 1.55 !important;
+    text-align: justify !important;
+  }
+
+  .document-intro p {
+    margin: 0 0 3.5mm !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .document-details {
+    display: block !important;
+    margin-top: 5mm !important;
+  }
+
+  .document-field {
+    display: block !important;
+    min-width: 0 !important;
+    margin: 0 0 3mm !important;
+    padding: 0 0 2mm !important;
+    border-bottom: 0.25mm solid #dfe5e0 !important;
+    break-inside: avoid-page;
     page-break-inside: avoid;
   }
-  .document-logo { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .document-details, .document-field, .signature-block, .document-footer { break-inside: avoid; page-break-inside: avoid; }
-  .document-footer { margin-top: auto !important; }
-  a { color: inherit; text-decoration: none; }
+
+  .document-logo img[hidden] {
+    display: none !important;
+  }
+
+  .document-label {
+    display: block !important;
+    margin: 0 0 1.2mm !important;
+    color: #53645a !important;
+    font-size: 9.5pt !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.065em !important;
+  }
+
+  .document-field p {
+    min-height: 0 !important;
+    margin: 0 !important;
+    color: #202b25 !important;
+    font-size: 12pt !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    overflow: visible !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    white-space: pre-wrap !important;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .document-field .description-text {
+    text-align: justify !important;
+    hyphens: auto;
+  }
+
+  .media-field p {
+    font-weight: 700 !important;
+  }
+
+  .document-closing {
+    margin: 5.5mm 0 0 !important;
+    color: #3d4942 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    text-align: justify !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+
+  .document-footer {
+    margin-top: 6mm !important;
+    padding-top: 0 !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .document-date {
+    margin: 0 0 11mm !important;
+    color: #2d3832 !important;
+    font-size: 11.5pt !important;
+    line-height: 1.4 !important;
+    text-align: right !important;
+  }
+
+  .signature-block {
+    width: 70% !important;
+    max-width: 125mm !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  .signature-line {
+    height: 0.25mm !important;
+    margin: 0 0 2mm !important;
+    background: #343d37 !important;
+  }
+
+  .signature-name {
+    margin: 0 !important;
+    color: #202b25 !important;
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .signature-caption {
+    margin: 1mm 0 0 !important;
+    color: #58675e !important;
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .document-footer-note {
+    margin: 7mm 0 0 !important;
+    padding-top: 2.5mm !important;
+    border-top: 0.25mm solid #dfe5e0 !important;
+    color: #68766e !important;
+    font-size: 9pt !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
 }

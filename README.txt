@@ -1,6 +1,6 @@
 GERADOR DE REQUERIMENTO PARA COBERTURA DE EVENTO
 Secretaria Municipal de Educação de Irecê – BA
-Versão: 1.0.0
+Versão: 1.1.0
 
 1. OBJETIVO
 -----------
@@ -63,7 +63,7 @@ quando servidos por localhost.
 7. Confira a pré-visualização do requerimento.
 8. Clique em "Gerar PDF".
 9. Na janela de impressão do navegador, selecione "Salvar como PDF" (ou opção
-   equivalente), papel A4 e orientação retrato. Salve o arquivo no local desejado.
+   equivalente), papel A4 e orientação retrato. Desative os cabeçalhos e rodapés do navegador e mantenha a escala em 100% (padrão). Salve o arquivo no local desejado.
 
 A exportação utiliza window.print() e a folha de estilos de impressão. Por isso,
 o PDF é produzido pelo próprio navegador, sem serviço externo. O nome sugerido
@@ -84,7 +84,7 @@ para o arquivo deriva do nome do requerente e do título do evento.
 
 Para transferir os dados para outro dispositivo, será necessário implementar uma
 rotina de exportação/importação ou utilizar uma solução de armazenamento central.
-Essa funcionalidade não faz parte da versão 1.0.0.
+Essa funcionalidade não faz parte da versão 1.1.0.
 
 7. ORGANIZAÇÃO DO PROJETO
 ------------------------
@@ -95,7 +95,7 @@ assets/css/styles.css
   Estilos da aplicação, formulário, histórico e pré-visualização.
 
 assets/css/print.css
-  Regras específicas para impressão em papel A4.
+  Regras específicas para impressão em papel A4, com tipografia ampliada, quebra automática e proteção contra cortes de campos.
 
 src/app.js
   Ponto de entrada e composição dos módulos.
@@ -175,7 +175,7 @@ não depende de Node.js para funcionar no navegador.
 ------------------
 - Textos institucionais e campos podem ser editados em index.html.
 - Cores, espaçamentos e tipografia ficam em assets/css/styles.css.
-- A aparência de impressão fica em assets/css/print.css.
+- A aparência de impressão fica em assets/css/print.css. Essa folha usa medidas físicas em milímetros e fontes em pontos (pt), permite paginação automática quando o conteúdo ultrapassa uma página e preserva campos e assinatura contra quebras internas.
 - Novas opções de mídia devem ser adicionadas ao select em index.html e à lista
   MEDIA_TYPES em src/models/request-model.js.
 - A chave de armazenamento inclui a versão v1. Ao alterar o formato dos dados,
